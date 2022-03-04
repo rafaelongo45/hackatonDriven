@@ -21,13 +21,12 @@ function getDataLocation(lat, long){
 
 function getApiData(weather){
     const dataWeather = weather.data;
-    console.log(dataWeather);
     renderWeatherLocation(dataWeather);
 }
 
 function apiError(){
     alert("Opa! Parece que deu um erro. Vamos recarregar essa página e fingir que nada aconteceu...");
-    window.location.reload(); //remover
+    window.location.reload();
 }
 
 function renderWeatherLocation(dataWeather){
@@ -40,15 +39,20 @@ function renderWeatherLocation(dataWeather){
     const locationIcon = `http://openweathermap.org/img/wn/${dataWeather.weather[0].icon}@2x.png`;
 
     location.innerHTML = `A temperatura em <img src = ${locationIcon}></img> ${locationName} é ${(locationTemp -273.15).toFixed(1)}°Celsius, a temperatura máxima é ${(locationMaxTemp -273.15).toFixed(1)}°Celsius e a 
-    mínima é ${(locationMinTemp -273.15).toFixed(1)}°Celsius. A sensação térmica é de ${(locationFeelsLike -273.15).toFixed(1)}°Celsius!;`;
+    mínima é ${(locationMinTemp -273.15).toFixed(1)}°Celsius. A sensação térmica é de ${(locationFeelsLike -273.15).toFixed(1)}°Celsius!`;
 }
 
 function getLocationByName(){
     const input = document.querySelector('input');
-    const promise = axios.get(`${APIWEATHERCITYNAME}${input.value}${APIWEATHERID}`);
-    input.value = "";
-    promise.then(getApiData);
-    promise.catch(apiError);
+    if(input.value === ""){
+        alert("Tem que botar o nome de uma cidade aí cara!")
+    }else{
+        const promise = axios.get(`${APIWEATHERCITYNAME}${input.value}${APIWEATHERID}`);
+        input.placeholder = input.value;
+        input.value = "";
+        promise.then(getApiData);
+        promise.catch(apiError);
+    }
 }
 
 getLocation();

@@ -1,7 +1,6 @@
-const APIWEATHERLATLONG = "http://api.openweathermap.org/data/2.5/weather?";
+const APIWEATHERLATLONG = "https://api.openweathermap.org/data/2.5/weather?";
 const APIWEATHERID = "&appid=a627d1e8c60b92052800621f1415617a";
-const APIWEATHERCITYNAME = "http://api.openweathermap.org/data/2.5/weather?q=";
-//api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+const APIWEATHERCITYNAME = "https://api.openweathermap.org/data/2.5/weather?q=";
 
 function getLocation() {
    navigator.geolocation.getCurrentPosition(getLatLong)
@@ -30,16 +29,36 @@ function apiError(){
 }
 
 function renderWeatherLocation(dataWeather){
-    const location = document.querySelector('.location-climate');
+    const city = document.querySelector('.city');
+    const temp = document.querySelector('.temp');
+    const tempFeelsLike = document.querySelector('.temp-feels-like');
+    const tempMax = document.querySelector('.temp-max');
+    const tempMin = document.querySelector('.temp-min');
     const locationName = dataWeather.name;
     const locationTemp = dataWeather.main.temp;
     const locationMaxTemp = dataWeather.main.temp_max;
     const locationMinTemp = dataWeather.main.temp_min;
     const locationFeelsLike = dataWeather.main.feels_like;
-    const locationIcon = `http://openweathermap.org/img/wn/${dataWeather.weather[0].icon}@2x.png`;
+    const locationIcon = `https://openweathermap.org/img/wn/${dataWeather.weather[0].icon}@2x.png`;
 
-    location.innerHTML = `A temperatura em <img src = ${locationIcon}></img> ${locationName} é ${(locationTemp -273.15).toFixed(1)}°Celsius, a temperatura máxima é ${(locationMaxTemp -273.15).toFixed(1)}°Celsius e a 
-    mínima é ${(locationMinTemp -273.15).toFixed(1)}°Celsius. A sensação térmica é de ${(locationFeelsLike -273.15).toFixed(1)}°Celsius!`;
+    city.innerHTML = `<h1>Local</h1>
+    ${locationName}
+    <img src = ${locationIcon}></img> 
+    `
+    temp.innerHTMl = `<h1>Temperatura</h1>
+    ${(locationTemp -273.15).toFixed(1)}°Celsius
+    `
+
+    tempFeelsLike.innerHTML = `<h1>Sensação Térmica</h1>
+    ${(locationFeelsLike -273.15).toFixed(1)}°Celsius!
+    `
+    tempMax.innerHTML = `<h1>Temperatura Máxima</h1>
+    ${(locationMaxTemp -273.15).toFixed(1)}°Celsius
+    `
+
+    tempMin.innerHTML = `<h1>Temperatura Mínima</h1>
+    ${(locationMinTemp -273.15).toFixed(1)}°Celsius
+    `
 }
 
 function getLocationByName(){

@@ -3,6 +3,7 @@
     --header-color: rgb(253, 140, 33);
     --h1-color: rgb(255, 255, 255);
     --subtitle-color: rgb(240, 240, 240);
+    --information-box: rgb(255, 171, 93);
 }
 
 body{
@@ -28,8 +29,12 @@ header{
     background-color: var(--header-color);
 }
 
-header h1{
+header *{
     font-weight: 700;
+
+}
+
+header h1{
     font-size: 25px;
     display:block;
     color: var(--h1-color)
@@ -38,6 +43,13 @@ header h1{
 header p {
     text-align: center;
     font-size: 15px;
-    font-weight: 700;
     color: var(--subtitle-color);
+}
+
+.location-climate{
+    margin-top: 30px;
+    background-color: var(--information-box);
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
 }
